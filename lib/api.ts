@@ -8,10 +8,11 @@
  * Game data © Moonton (Mobile Legends: Bang Bang). API maintained by
  * ridwaanhall / RoneAI. Unofficial — not affiliated with or endorsed by Moonton.
  */
+
 export const RONE_BASE = process.env.NEXT_PUBLIC_RONE_BASE!;
-export const PUBLIC_REVALIDATE = Number(
-  process.env.NEXT_PUBLIC_REVALIDATE ?? 3600
-);
+export const PUBLIC_REVALIDATE = Number(process.env.NEXT_PUBLIC_REVALIDATE) || 3600;
+
+
 export class ApiError extends Error {
   readonly status: number;
   readonly upstream: string | null;
