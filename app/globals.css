@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   MLBB "Land of Dawn" theme — always dark, no light mode.
+   ───────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Surfaces: deep abyssal navy, layered front-to-back */
+  --color-abyss-1000: #02040a;
+  --color-abyss-950: #05080f;
+  --color-abyss-900: #080d18;
+  --color-abyss-850: #0b1220;
+  --color-abyss-800: #0f1728;
+  --color-abyss-700: #16203a;
+  --color-abyss-600: #1e2b4a;
+
+  /* Signature gold — rank, currency, primary CTA */
+  --color-gold-200: #fff3d0;
+  --color-gold-300: #ffe4a3;
+  --color-gold-400: #f8cf5e;
+  --color-gold-500: #eab839;
+  --color-gold-600: #c9991f;
+  --color-gold-700: #96731a;
+
+  /* Secondary arcane cyan — links, online, info */
+  --color-arcane-300: #7dd3fc;
+  --color-arcane-400: #38bdf8;
+  --color-arcane-500: #0ea5e9;
+  --color-arcane-600: #0284c7;
+
+  /* Rank tier accents */
+  --color-victory: #34d399;
+  --color-defeat: #f87171;
+  --color-mvp: #fbbf24;
+  --color-ember: #fb923c;
+
+  --color-ink-400: #64748b;
+  --color-ink-300: #94a3b8;
+  --color-ink-200: #cbd5e1;
+  --color-ink-100: #e8eef7;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-panel: 0 18px 50px -18px rgb(0 0 0 / 0.85);
+  --shadow-gold: 0 0 28px -6px rgb(232 184 57 / 0.55);
+
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-pulse-glow: pulse-glow 2.8s ease-in-out infinite;
+  --animate-scanline: scanline 5s linear infinite;
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0) scale(1.04);
+  }
+}
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(3%, -4%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-3%, 3%, 0) scale(0.96);
+  }
+}
+
+@layer base {
+  * {
+    border-color: color-mix(in oklab, var(--color-gold-500) 14%, transparent);
+  }
+
+  html {
+    color-scheme: dark;
+    background-color: var(--color-abyss-1000);
+  }
+
+  body {
+    background-color: var(--color-abyss-1000);
+    color: var(--color-ink-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Thin, on-brand scrollbars */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-abyss-950);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-gold-600) 45%, transparent);
+    border: 2px solid var(--color-abyss-950);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-500);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-gold-500) 40%, transparent);
+    color: var(--color-gold-200);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-400);
+    outline-offset: 2px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Angular chrome — MLBB panels are never rounded rectangles.
+   ───────────────────────────────────────────────────────────── */
+
+@utility clip-notch {
+  clip-path: polygon(
+    14px 0,
+    100% 0,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    0 100%,
+    0 14px
+  );
+}
+
+@utility clip-notch-sm {
+  clip-path: polygon(
+    8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%,
+    0 8px
+  );
+}
+
+@utility clip-notch-tr {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+}
+
+@utility clip-blade {
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+}
+
+@utility clip-hex {
+  clip-path: polygon(
+    50% 0%,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0% 75%,
+    0% 25%
+  );
+}
+
+/* Gold hairline frame that survives clip-path */
+@utility frame-gold {
+  position: relative;
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--color-gold-500) 26%, transparent),
+    transparent 45%
+  );
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklab, var(--color-gold-400) 30%, transparent),
+    var(--shadow-panel);
+}
+
+@utility text-gold-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-gold-600) 0%,
+    var(--color-gold-300) 32%,
+    #fff 50%,
+    var(--color-gold-300) 68%,
+    var(--color-gold-600) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-gold-200) 85%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility vignette {
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    transparent 30%,
+    color-mix(in oklab, var(--color-abyss-1000) 88%, transparent) 100%
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Liquid glass — translucent, refractive surfaces with a bright
+   specular edge. Used app-wide via <Panel> and the chrome bars.
+   ───────────────────────────────────────────────────────────── */
+
+@utility glass {
+  background: linear-gradient(
+    155deg,
+    rgb(255 255 255 / 0.12) 0%,
+    rgb(255 255 255 / 0.04) 38%,
+    rgb(255 255 255 / 0.02) 62%,
+    rgb(255 255 255 / 0.08) 100%
+  );
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.22),
+    inset 0 -1px 0 0 rgb(255 255 255 / 0.05),
+    var(--shadow-panel);
+}
+
+@utility glass-strong {
+  background: linear-gradient(
+    155deg,
+    rgb(255 255 255 / 0.18) 0%,
+    rgb(255 255 255 / 0.06) 40%,
+    rgb(255 255 255 / 0.03) 64%,
+    rgb(255 255 255 / 0.12) 100%
+  );
+  backdrop-filter: blur(26px) saturate(180%);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.28),
+    inset 0 -1px 0 0 rgb(255 255 255 / 0.06),
+    var(--shadow-panel);
+}
+
+@utility glass-subtle {
+  background: linear-gradient(
+    155deg,
+    rgb(255 255 255 / 0.07) 0%,
+    rgb(255 255 255 / 0.02) 55%,
+    rgb(255 255 255 / 0.05) 100%
+  );
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.14);
+}
+
+/* Drifting colour blobs behind glass so refraction is visible. */
+.ambient-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.55;
+  will-change: transform;
+  animation: aurora-drift 22s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Motion safety — every animation has a static landing state.
+   ───────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
