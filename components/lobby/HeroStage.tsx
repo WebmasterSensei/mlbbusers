@@ -18,7 +18,11 @@ import type { HeroRef } from "@/types/mlbb";
  * The rotation is a manual carousel rather than an autoplayer — the lobby is a
  * navigation surface, and an animation that keeps moving under a keyboard
  * user's focus is hostile. Dot buttons and arrow keys both drive it.
+ * 
+ * 
  */
+
+
 export function HeroStage({ heroes }: { heroes: HeroRef[] }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -61,7 +65,7 @@ export function HeroStage({ heroes }: { heroes: HeroRef[] }) {
     return (
       <div className="grid min-h-[46vh] place-items-center">
         <p className="max-w-sm text-center text-sm text-ink-400">
-          Hero art could not be loaded from the game API. Every other section still works.
+         {JSON.stringify(heroes)}
         </p>
       </div>
     );
