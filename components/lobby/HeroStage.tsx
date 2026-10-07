@@ -65,7 +65,7 @@ export function HeroStage({ heroes }: { heroes: HeroRef[] }) {
     return (
       <div className="grid min-h-[46vh] place-items-center">
         <p className="max-w-sm text-center text-sm text-ink-400">
-         {JSON.stringify(heroes)}
+          Hero art could not be loaded from the game API. Every other section still works.
         </p>
       </div>
     );
